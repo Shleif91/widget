@@ -1,6 +1,6 @@
-# chat
+# widget
 
-> chat on vue
+> widget on vue
 
 ## Build Setup
 
