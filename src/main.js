@@ -6,6 +6,8 @@ import App from './App.vue'
 Vue.use(VueFormWizard);
 Vue.use(Vuelidate);
 
+window.$ = window.jQuery = require("jquery");
+
 Vue.component('step1', require('./components/Step1.vue'));
 Vue.component('step2', require('./components/Step2.vue'));
 
