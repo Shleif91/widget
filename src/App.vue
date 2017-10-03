@@ -17,7 +17,14 @@
                 </tab-content>
             </form-wizard>
         </div>
-        <button class="btn btn-primary" id="label" v-on:click="openWidget()">Click</button>
+        <img src="./assets/img/gift.png" id="label1" v-on:click="openWidget()">
+        <a href="#" id="popup__toggle" onclick="return false;">
+            <div class="circlephone" style="transform-origin: center;"></div>
+            <div class="circle-fill" style="transform-origin: center;"></div>
+            <div class="img-circle" style="transform-origin: center;">
+                <div class="img-circleblock" style="transform-origin: center;"></div>
+            </div>
+        </a>
     </div>
 </template>
 
@@ -78,5 +85,9 @@
         border-radius: 5px;
         cursor: pointer;
         z-index: 9999;
+    }
+    img {
+        width: 100px;
+        height: 100px;
     }
 </style>
