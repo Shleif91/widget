@@ -1,30 +1,45 @@
 <template>
     <div>
         <div class="widget">
-            <div class="headWidget">
-                <button class="closeWidget" v-on:click="closeWidget()">x</button>
+            <!--<div class="headWidget">-->
+                <!--<button class="closeWidget" v-on:click="closeWidget()">x</button>-->
+            <!--</div>-->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="closeWidget()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form-wizard shape="square" color="#3498db">
+                                <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('step1')">
+                                    <step1 ref="step1" @on-validate="mergePartialModels"></step1>
+                                </tab-content>
+                                <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('step2')">
+                                    <step2 ref="step2" @on-validate="mergePartialModels"></step2>
+                                </tab-content>
+                                <tab-content title="Last step" icon="ti-check">
+                                    Here is your final model:
+                                    <pre>{{finalModel}}</pre>
+                                </tab-content>
+                            </form-wizard>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <form-wizard shape="square" color="#3498db">
-                <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('step1')">
-                    <step1 ref="step1" @on-validate="mergePartialModels"></step1>
-                </tab-content>
-                <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('step2')">
-                    <step2 ref="step2" @on-validate="mergePartialModels"></step2>
-                </tab-content>
-                <tab-content title="Last step" icon="ti-check">
-                    Here is your final model:
-                    <pre>{{finalModel}}</pre>
-                </tab-content>
-            </form-wizard>
         </div>
-        <img src="./assets/img/gift.png" id="label1" v-on:click="openWidget()">
-        <a href="#" id="popup__toggle" onclick="return false;">
-            <div class="circlephone" style="transform-origin: center;"></div>
-            <div class="circle-fill" style="transform-origin: center;"></div>
-            <div class="img-circle" style="transform-origin: center;">
-                <div class="img-circleblock" style="transform-origin: center;"></div>
-            </div>
-        </a>
+        <div id="widgetButton">
+            <a href="#" id="popup__toggle" onclick="return false;" v-on:click="openWidget()">
+                <div class="circlephone" style="transform-origin: center;"></div>
+                <div class="circle-fill" style="transform-origin: center;"></div>
+                <div class="img-circle" style="transform-origin: center;">
+                    <div class="img-circleblock" style="transform-origin: center;"></div>
+                </div>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -47,12 +62,21 @@
                 }
             },
             openWidget() {
-                $("#label").css('display', 'none');
+                $('#myModal').modal('show');
+                $("#widgetButton").css('display', 'none');
                 $(".widget").css('display', 'block');
+                window.parent.postMessage({
+                    'event': 'open',
+                    'token': '123456',
+                }, "*");
             },
             closeWidget() {
-                $("#label").css('display', 'block');
+                $("#widgetButton").css('display', 'block');
                 $(".widget").css('display', 'none');
+                window.parent.postMessage({
+                    'event': 'close',
+                    'token': '123456',
+                }, "*");
             }
         },
     }
@@ -60,9 +84,10 @@
 
 <style>
     .widget {
-        width: 300px;
+        /*width: 300px;*/
+        /*height: 300px;*/
         display: none;
-        background-color: rgba(0,255,255,.2);
+        /*background-color: rgba(0,255,255,.2);*/
     }
     #label {
         position: fixed;

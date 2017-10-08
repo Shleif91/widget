@@ -1,3 +1,7 @@
+body {
+    background-color: transparent !important;
+}
+
 #popup__toggle {
     bottom: 25px;
     right: 10px;
@@ -78,7 +82,7 @@
     -webkit-box-sizing: content-box;
     width: 72px;
     height: 72px;
-    background-image: url(../img/gift.png);
+    background-image: url(../img/gift1.png);
     background-position: center center;
     background-repeat: no-repeat;
     animation-name: tossing;

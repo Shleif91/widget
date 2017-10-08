@@ -3,25 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="./src/assets/css/bootstrap.min.css">
     <style>
-        .widget {
+        body {
+            background-color: #ccc;
+        }
+        #widget {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            width: 180px;
+            height: 160px;
         }
     </style>
 </head>
 <body>
-<h1>Text</h1>
-<div class="widget">
+<div class="container">
+    <h1>Text</h1>
+    <table class="table">
+        <tr><td>Test</td></tr>
+        <tr><td>Test</td></tr>
+        <tr><td>Test</td></tr>
+        <tr><td>Test</td></tr>
+        <tr><td>Test</td></tr>
+    </table>
+    <div class="col-md-6">
+        <form action="/" onsubmit="return false" class="form-group">
+            <input type="text" class="form-control">
+            <input type="text" class="form-control">
+            <button class="btn btn-primary" onclick="test()">Save</button>
+        </form>
+    </div>
     <iframe
-            src="http://localhost:8080"
-            frameborder="0"
-            id="widget"
-            width="315"
-            height="500"
+        src="http://localhost:8080"
+        frameborder="0"
+        id="widget"
     ></iframe>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+    window.addEventListener('message', function (event) {
+        var widget = $('#widget');
+        if (event.data.token === "123456") {
+            if (event.data.event === 'open') {
+                widget.css('height', '100%');
+                widget.css('width', '100%');
+                $('body').css('overflow', 'hidden');
+            }
+            if (event.data.event === 'close') {
+                widget.css('height', '160');
+                widget.css('width', '180');
+                $('body').css('overflow', 'visible');
+            }
+        }
+    }, false);
+
+    function test() {
+        console.log('test')
+    }
+</script>
 </body>
 </html>
