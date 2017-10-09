@@ -50,6 +50,12 @@
                 finalModel: {},
             }
         },
+        mounted() {
+            let self = this;
+            $('#myModal').on('hide.bs.modal', function (e) {
+                self.closeWidget();
+            })
+        },
         methods: {
             validateStep(name) {
                 var refToValidate = this.$refs[name];
@@ -71,12 +77,12 @@
                 }, "*");
             },
             closeWidget() {
-                $("#widgetButton").css('display', 'block');
-                $(".widget").css('display', 'none');
                 window.parent.postMessage({
                     'event': 'close',
                     'token': '123456',
                 }, "*");
+                $(".widget").css('display', 'none');
+                $("#widgetButton").css('display', 'block');
             }
         },
     }
