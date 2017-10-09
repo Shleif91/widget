@@ -34,36 +34,16 @@
         <form action="/" onsubmit="return false" class="form-group">
             <input type="text" class="form-control">
             <input type="text" class="form-control">
-            <button class="btn btn-primary" onclick="test()">Save</button>
+            <button class="btn btn-primary" onclick="return false;">Save</button>
         </form>
     </div>
-    <iframe
-        src="http://localhost:8080"
-        frameborder="0"
-        id="widget"
-    ></iframe>
+    <!--<iframe-->
+        <!--src="http://localhost:8080"-->
+        <!--frameborder="0"-->
+        <!--id="widget"-->
+    <!--&gt;</iframe>-->
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-    window.addEventListener('message', function (event) {
-        var widget = $('#widget');
-        if (event.data.token === "123456") {
-            if (event.data.event === 'open') {
-                widget.css('height', '100%');
-                widget.css('width', '100%');
-                $('body').css('overflow', 'hidden');
-            }
-            if (event.data.event === 'close') {
-                widget.css('height', '160');
-                widget.css('width', '180');
-                $('body').css('overflow', 'visible');
-            }
-        }
-    }, false);
-
-    function test() {
-        console.log('test')
-    }
-</script>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+<script src="load.js"></script>
 </body>
 </html>
