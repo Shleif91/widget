@@ -73,13 +73,13 @@
                 $(".widget").css('display', 'block');
                 window.parent.postMessage({
                     'event': 'open',
-                    'token': '123456',
+                    'token': 'it-zombie',
                 }, "*");
             },
             closeWidget() {
                 window.parent.postMessage({
                     'event': 'close',
-                    'token': '123456',
+                    'token': 'it-zombie',
                 }, "*");
                 $(".widget").css('display', 'none');
                 $("#widgetButton").css('display', 'block');
@@ -90,32 +90,7 @@
 
 <style>
     .widget {
-        /*width: 300px;*/
-        /*height: 300px;*/
         display: none;
-        /*background-color: rgba(0,255,255,.2);*/
-    }
-    #label {
-        position: fixed;
-        right: 20px;
-        bottom: 100px;
-    }
-    .headWidget {
-        width: 100%;
-        background-color: rgb(52,152,219);
-        height: 50px;
-        border-radius: 5px 5px 0 0;
-    }
-    .closeWidget {
-        position: fixed;
-        right: 10px;
-        top: 10px;
-        border: 2px solid #fff;
-        color: #fff;
-        background-color: transparent;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 9999;
     }
     img {
         width: 100px;
