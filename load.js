@@ -55,4 +55,6 @@ window.onload = function() {
             }
         }
     }, false);
+
+    var widget_id = "{{widget_id}}";
 };
