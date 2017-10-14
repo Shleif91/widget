@@ -1,9 +1,13 @@
 <template>
     <div>
-        <div class="form-group" v-bind:class="{ 'has-error': $v.phone.$error }">
-            <label>Phone</label>
-            <input class="form-control" v-model.trim="phone" @input="$v.phone.$touch()">
-            <span class="help-block" v-if="$v.phone.$error && !$v.phone.required">Phone is required</span>
+        <div class="form-group" v-bind:class="{ 'has-error': $v.policy.$error }">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" v-model.trim="policy" @input="$v.policy.$touch()">
+                    <a href="#">Accept privacy policy</a>
+                </label>
+            </div>
+            <span class="help-block" v-if="$v.policy.$error && !$v.policy.required">Accept policy</span>
         </div>
     </div>
 </template>
@@ -16,14 +20,14 @@
     export default {
         data() {
             return {
-                phone: ''
+                policy: false
             }
         },
         validations: {
-            phone: {
+            policy: {
                 required
             },
-            form: ['phone']
+            form: ['policy']
         },
         methods: {
             validate() {

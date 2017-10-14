@@ -24,6 +24,7 @@ window.onload = function() {
     iframe.id = 'it-zombie-widget';
     iframe.frameBorder = 0;
     iframe.src = 'https://stagingserver.xyz/ru/widget/';
+    iframe.src = 'http://localhost:8080';
     document.body.appendChild(iframe);
 
     // add widget styles on user site
@@ -47,7 +48,7 @@ window.onload = function() {
                 widget.css('width', '100%');
                 $('body').css('overflow', 'hidden');
             }
-            if (event.data.event === 'it-zombie') {
+            if (event.data.event === 'close') {
                 widget.css('height', '160');
                 widget.css('width', '180');
                 $('body').css('overflow', 'visible');

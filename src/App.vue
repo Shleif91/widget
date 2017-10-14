@@ -1,10 +1,6 @@
 <template>
     <div>
         <div class="widget">
-            <!--<div class="headWidget">-->
-                <!--<button class="closeWidget" v-on:click="closeWidget()">x</button>-->
-            <!--</div>-->
-            <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -14,7 +10,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form-wizard shape="square" color="#3498db">
+                            <form-wizard shape="circle" color="#3498db">
+                                <tab-content title="Policy" icon="ti-user" :before-change="()=>validateStep('step0')">
+                                    <step0 ref="step0" @on-validate="mergePartialModels"></step0>
+                                </tab-content>
                                 <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('step1')">
                                     <step1 ref="step1" @on-validate="mergePartialModels"></step1>
                                 </tab-content>
