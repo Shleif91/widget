@@ -1,3 +1,8 @@
+const widget_pk = 1;
+const user_token = 'IntcInRva2VuXCI6XCJKYmwyZjc1WXhmNzgyaEhhSVV5elFmZnQ4OW54ckx1NDdKR0lvaFJqQ2tWR09BbUhaQzFMOGh1N3hmT0NlbnNUQXp6NnFEOUg5NVBib3hVdlBTcFFqMk5hTEgxbDZMaFV3Y05nXCJ9Ig:1e3PrU:aYr88gwcNUJNzHc4oq189xxZDb0';
+
+var leed_token = '';
+
 window.onload = function() {
     // if the site does not have jquery - connect it
     if (!window.jQuery) {
@@ -6,17 +11,11 @@ window.onload = function() {
         document.body.appendChild(script);
     }
 
-    function S4() {
-        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    }
-
-    const token = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-
     // add input for storage token on user site
     var input = document.createElement('input');
     input.type = 'hidden';
     input.id = 'lead-zombie-token';
-    input.value = token;
+    input.value = '';
     document.body.appendChild(input);
 
     // add frame for widget on user site
@@ -41,20 +40,82 @@ window.onload = function() {
     head.appendChild(style);
 
     window.addEventListener('message', function (event) {
-        var widget = $('#it-zombie-widget');
+        var widget = $('#it-zombie-widget'),
+            url = null,
+            data = null;
+
         if (event.data.token === 'it-zombie') {
             if (event.data.event === 'open') {
                 widget.css('height', '100%');
                 widget.css('width', '100%');
                 $('body').css('overflow', 'hidden');
+                url = 'https://stagingserver.xyz/ru/api/widgets/' + widget_pk + '/?token=' + user_token;
+                data = {'opened': 1};
+                PUT(url, data);
             }
             if (event.data.event === 'close') {
                 widget.css('height', '160');
                 widget.css('width', '180');
                 $('body').css('overflow', 'visible');
+                url = 'https://stagingserver.xyz/ru/api/widgets/' + widget_pk + '/?token=' + user_token;
+                data = {'closed': 1};
+                PUT(url, data);
+            }
+            if (event.data.event === 'agree') {
+                url = 'https://stagingserver.xyz/ru/api/leeds/?token=' + user_token;
+                data = {
+                    "widget": widget_pk,
+                    "token" : 234
+                };
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: data
+                }).done(function(data) {
+                    leed_token = data.id;
+                }).fail(function(data) {
+                    console.log(data);
+                });
+            }
+            if (event.data.event === 'first-data') {
+                url = 'https://stagingserver.xyz/ru/api/leeds/' + leed_token + '/?token=' + user_token;
+                data = {
+                    first_name: event.data.params.name,
+                    email: event.data.params.email
+                };
+                PUT(url, data);
+            }
+            if (event.data.event === 'second-data') {
+                url = 'https://stagingserver.xyz/ru/api/leeds/' + leed_token + '/?token=' + user_token;
+                data = {
+                    phone_number: event.data.params.phone
+                };
+                PUT(url, data);
             }
         }
     }, false);
 
-    var widget_id = "{{widget_id}}";
+    function POST(url, data) {
+        apiSend(url, 'POST', data)
+    }
+
+    function PUT(url, data) {
+        apiSend(url, 'PUT', data)
+    }
+
+    function apiSend(url, method, data) {
+        $.ajax({
+            url: url,
+            method: method,
+            data: data
+        }).done(function(data) {
+            console.log(data);
+        }).fail(function(data) {
+            console.log(data);
+        });
+    }
 };
+
+function S4() {
+    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+}

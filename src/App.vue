@@ -58,6 +58,19 @@
         methods: {
             validateStep(name) {
                 var refToValidate = this.$refs[name];
+                if (refToValidate.validate()) {
+                    switch (name) {
+                        case 'step0':
+                            this.callParent('agree');
+                            break;
+                        case 'step1':
+                            this.callParent('first-data');
+                            break;
+                        case 'step2':
+                            this.callParent('second-data');
+                            break;
+                    }
+                }
                 return refToValidate.validate();
             },
             mergePartialModels(model, isValid){
@@ -70,18 +83,19 @@
                 $('#myModal').modal('show');
                 $("#widgetButton").css('display', 'none');
                 $(".widget").css('display', 'block');
-                window.parent.postMessage({
-                    'event': 'open',
-                    'token': 'it-zombie',
-                }, "*");
+                this.callParent('open');
             },
             closeWidget() {
-                window.parent.postMessage({
-                    'event': 'close',
-                    'token': 'it-zombie',
-                }, "*");
+                this.callParent('close');
                 $(".widget").css('display', 'none');
                 $("#widgetButton").css('display', 'block');
+            },
+            callParent(eventName) {
+                window.parent.postMessage({
+                    'event': eventName,
+                    'token': 'it-zombie',
+                    'params': this.finalModel
+                }, "*");
             }
         },
     }
