@@ -17,8 +17,11 @@
                                 <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('step1')">
                                     <step1 ref="step1" @on-validate="mergePartialModels"></step1>
                                 </tab-content>
-                                <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('step2')">
+                                <tab-content title="Shared" icon="ti-settings" :before-change="()=>validateStep('step2')">
                                     <step2 ref="step2" @on-validate="mergePartialModels"></step2>
+                                </tab-content>
+                                <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('step3')">
+                                    <step3 ref="step3" @on-validate="mergePartialModels"></step3>
                                 </tab-content>
                                 <tab-content title="Last step" icon="ti-check">
                                     Here is your final model:
@@ -68,6 +71,9 @@
                             break;
                         case 'step2':
                             this.callParent('second-data');
+                            break;
+                        case 'step3':
+                            this.callParent('third-data');
                             break;
                     }
                 }

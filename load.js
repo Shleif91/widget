@@ -1,5 +1,5 @@
 const widget_pk = 1;
-const user_token = 'IntcInRva2VuXCI6XCJKYmwyZjc1WXhmNzgyaEhhSVV5elFmZnQ4OW54ckx1NDdKR0lvaFJqQ2tWR09BbUhaQzFMOGh1N3hmT0NlbnNUQXp6NnFEOUg5NVBib3hVdlBTcFFqMk5hTEgxbDZMaFV3Y05nXCJ9Ig:1e3PrU:aYr88gwcNUJNzHc4oq189xxZDb0';
+const user_token = 'IntcInRva2VuXCI6XCJzd2tqelZxdklmUXdSN1YxN3VKd3dWaUNHczNNU0tZejU5M1ZFU0JBSTJ0TnVVUllNU1RLNHhhMTFIcDM3RDZwc0Q0MEVLSEdpQkNhT0pSVGk5RmE0VjE5emxrQ1pqMUJWaFVQXCJ9Ig:1e3pVB:DuQpsSp0BaLVDzMRZMX9h_QW68g';
 
 var leed_token = '';
 
@@ -10,6 +10,11 @@ window.onload = function() {
         script.src = 'https://code.jquery.com/jquery-3.2.1.min.js';
         document.body.appendChild(script);
     }
+
+    // script = document.createElement('script');
+    // script.src = 'https://vk.com/js/api/share.js?93';
+    // script.charset = 'windows-1251';
+    // document.head.appendChild(script);
 
     // add input for storage token on user site
     var input = document.createElement('input');
@@ -49,17 +54,15 @@ window.onload = function() {
                 widget.css('height', '100%');
                 widget.css('width', '100%');
                 $('body').css('overflow', 'hidden');
-                url = 'https://stagingserver.xyz/ru/api/widgets/' + widget_pk + '/?token=' + user_token;
-                data = {'opened': 1};
-                PUT(url, data);
+                url = 'https://stagingserver.xyz/ru/api/widgets/opened/' + widget_pk + '/?token=' + user_token;
+                PUT(url, {});
             }
             if (event.data.event === 'close') {
                 widget.css('height', '160');
                 widget.css('width', '180');
                 $('body').css('overflow', 'visible');
-                url = 'https://stagingserver.xyz/ru/api/widgets/' + widget_pk + '/?token=' + user_token;
-                data = {'closed': 1};
-                PUT(url, data);
+                url = 'https://stagingserver.xyz/ru/api/widgets/closed/' + widget_pk + '/?token=' + user_token;
+                PUT(url, {});
             }
             if (event.data.event === 'agree') {
                 url = 'https://stagingserver.xyz/ru/api/leeds/?token=' + user_token;
@@ -86,6 +89,9 @@ window.onload = function() {
                 PUT(url, data);
             }
             if (event.data.event === 'second-data') {
+                console.log('second');
+            }
+            if (event.data.event === 'third-data') {
                 url = 'https://stagingserver.xyz/ru/api/leeds/' + leed_token + '/?token=' + user_token;
                 data = {
                     phone_number: event.data.params.phone

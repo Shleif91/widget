@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="form-group" v-bind:class="{ 'has-error': $v.phone.$error }">
-            <h1 id="vk"></h1>
+            <label>Phone</label>
+            <input class="form-control" v-model.trim="phone" @input="$v.phone.$touch()">
+            <span class="help-block" v-if="$v.phone.$error && !$v.phone.required">Phone is required</span>
         </div>
     </div>
 </template>
@@ -19,12 +21,9 @@
         },
         validations: {
             phone: {
-
+                required
             },
             form: ['phone']
-        },
-        mounted() {
-            $('#vk').append(VK.Share.button());
         },
         methods: {
             validate() {
