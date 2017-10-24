@@ -1,7 +1,17 @@
 const widget_pk = 1;
-const user_token = 'IntcInRva2VuXCI6XCJzd2tqelZxdklmUXdSN1YxN3VKd3dWaUNHczNNU0tZejU5M1ZFU0JBSTJ0TnVVUllNU1RLNHhhMTFIcDM3RDZwc0Q0MEVLSEdpQkNhT0pSVGk5RmE0VjE5emxrQ1pqMUJWaFVQXCJ9Ig:1e3pVB:DuQpsSp0BaLVDzMRZMX9h_QW68g';
-
+const user_token = 'IntcInRva2VuXCI6XCJlcUl2TWZxZUZ2N1k4VFNpQUdTYkhqZENUc0tRWTQ1aUJDRXJFRElPQmhhR3hnbXBURVJkNWxINzdIR3o4MVdyYm0xbVFTOXQ4ZzBQMFJZYU9ydWVlalR6MzVidzJ0OUc5TzVWXCJ9Ig:1e6jvU:l4ORxUPDyIS-b2zZPj8Lub4UFWQ';
+const domain = 'http://127.0.0.1:8000';
 var leed_token = '';
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
 window.onload = function() {
     // if the site does not have jquery - connect it
@@ -10,11 +20,6 @@ window.onload = function() {
         script.src = 'https://code.jquery.com/jquery-3.2.1.min.js';
         document.body.appendChild(script);
     }
-
-    // script = document.createElement('script');
-    // script.src = 'https://vk.com/js/api/share.js?93';
-    // script.charset = 'windows-1251';
-    // document.head.appendChild(script);
 
     // add input for storage token on user site
     var input = document.createElement('input');
@@ -54,21 +59,22 @@ window.onload = function() {
                 widget.css('height', '100%');
                 widget.css('width', '100%');
                 $('body').css('overflow', 'hidden');
-                url = 'https://stagingserver.xyz/ru/api/widgets/opened/' + widget_pk + '/?token=' + user_token;
+                url = domain + '/ru/api/widgets/opened/' + widget_pk + '/?token=' + user_token;
                 PUT(url, {});
             }
             if (event.data.event === 'close') {
                 widget.css('height', '160');
                 widget.css('width', '180');
                 $('body').css('overflow', 'visible');
-                url = 'https://stagingserver.xyz/ru/api/widgets/closed/' + widget_pk + '/?token=' + user_token;
+                url = domain + '/ru/api/widgets/closed/' + widget_pk + '/?token=' + user_token;
                 PUT(url, {});
             }
             if (event.data.event === 'agree') {
-                url = 'https://stagingserver.xyz/ru/api/leeds/?token=' + user_token;
+                url = domain + '/ru/api/leeds/?token=' + user_token;
                 data = {
                     "widget": widget_pk,
-                    "token" : 234
+                    "token" : 234,
+                    "referal": getParameterByName('ref')
                 };
                 $.ajax({
                     url: url,
@@ -76,12 +82,17 @@ window.onload = function() {
                     data: data
                 }).done(function(data) {
                     leed_token = data.id;
+                    iframe.contentWindow.postMessage({
+                        'event': 'setToken',
+                        'token': 'it-zombie',
+                        'params': {'token':data.token}
+                    }, "*");
                 }).fail(function(data) {
                     console.log(data);
                 });
             }
             if (event.data.event === 'first-data') {
-                url = 'https://stagingserver.xyz/ru/api/leeds/' + leed_token + '/?token=' + user_token;
+                url = domain + '/ru/api/leeds/' + leed_token + '/?token=' + user_token;
                 data = {
                     first_name: event.data.params.name,
                     email: event.data.params.email
@@ -92,7 +103,7 @@ window.onload = function() {
                 console.log('second');
             }
             if (event.data.event === 'third-data') {
-                url = 'https://stagingserver.xyz/ru/api/leeds/' + leed_token + '/?token=' + user_token;
+                url = domain + '/ru/api/leeds/' + leed_token + '/?token=' + user_token;
                 data = {
                     phone_number: event.data.params.phone
                 };
@@ -121,7 +132,3 @@ window.onload = function() {
         });
     }
 };
-
-function S4() {
-    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-}

@@ -23,9 +23,6 @@
             },
             form: ['phone']
         },
-        mounted() {
-            $('#vk').append(VK.Share.button());
-        },
         methods: {
             validate() {
                 this.$v.form.$touch();

@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="widget">
+            <input type="hidden" id="leedToken">
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -56,7 +57,17 @@
             let self = this;
             $('#myModal').on('hide.bs.modal', function (e) {
                 self.closeWidget();
-            })
+            });
+            window.addEventListener('message', function (event) {
+                if (event.data.event === 'setToken') {
+                    $('#vk').append(VK.Share.button({
+                        url: 'http://localhost:63342/mvp/test.html?_ijt=l2farcmrpo7nhem15f3d3otgga/?ref=' + event.data.params.token,
+                        title: 'Пиздатый оффер',
+                        image: 'http://img0.liveinternet.ru/images/attach/c/0//44/903/44903744_X_cc4be601.jpg',
+                        noparse: true
+                    }));
+                }
+            });
         },
         methods: {
             validateStep(name) {
