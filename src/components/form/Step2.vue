@@ -1,7 +1,11 @@
 <template>
     <div>
         <div class="form-group" v-bind:class="{ 'has-error': $v.phone.$error }">
-            <h1 id="vk"></h1>
+            <div id="vk"></div>
+            <button id="fb">Share FB</button>
+            <a class="twitter-share-button" href="https://twitter.com/intent/tweet">
+                Tweet
+            </a>
         </div>
     </div>
 </template>

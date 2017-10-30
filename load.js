@@ -21,13 +21,6 @@ window.onload = function() {
         document.body.appendChild(script);
     }
 
-    // add input for storage token on user site
-    var input = document.createElement('input');
-    input.type = 'hidden';
-    input.id = 'lead-zombie-token';
-    input.value = '';
-    document.body.appendChild(input);
-
     // add frame for widget on user site
     var iframe = document.createElement('iframe');
     iframe.id = 'it-zombie-widget';
