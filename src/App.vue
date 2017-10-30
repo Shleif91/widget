@@ -11,7 +11,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <leed-form></leed-form>
+                            <leed-form v-if="isOpen"></leed-form>
+                            <result v-else></result>
                         </div>
                     </div>
                 </div>
@@ -31,10 +32,25 @@
 
 <script>
     export default {
+        data() {
+            return {
+                isOpen: true
+            }
+        },
         mounted() {
             let self = this;
             $('#myModal').on('hide.bs.modal', function (e) {
                 self.closeWidget();
+            });
+            $.ajax({
+                url: 'http://127.0.0.1:8000/ru/api/widgets/1/?token=IntcInRva2VuXCI6XCJlcUl2TWZxZUZ2N1k4VFNpQUdTYkhqZENUc0tRWTQ1aUJDRXJFRElPQmhhR3hnbXBURVJkNWxINzdIR3o4MVdyYm0xbVFTOXQ4ZzBQMFJZYU9ydWVlalR6MzVidzJ0OUc5TzVWXCJ9Ig:1e6jvU:l4ORxUPDyIS-b2zZPj8Lub4UFWQ',
+                method: 'GET'
+            }).done(function(data) {
+                if (data.status === 'stoped') {
+                    self.isOpen = false;
+                }
+            }).fail(function(data) {
+                console.log(data);
             });
         },
         methods: {

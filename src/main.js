@@ -13,6 +13,7 @@ Vue.component('step0', require('./components/form/Step0.vue'));
 Vue.component('step1', require('./components/form/Step1.vue'));
 Vue.component('step2', require('./components/form/Step2.vue'));
 Vue.component('step3', require('./components/form/Step3.vue'));
+Vue.component('result', require('./components/Result.vue'));
 
 new Vue({
     el: '#app',
