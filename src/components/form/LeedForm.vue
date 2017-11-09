@@ -1,19 +1,19 @@
 <template>
     <div>
         <form-wizard shape="circle" color="#3498db">
-            <tab-content title="Policy" icon="ti-user" :before-change="()=>validateStep('step0')">
+            <tab-content :before-change="()=>validateStep('step0')">
                 <step0 ref="step0" @on-validate="mergePartialModels"></step0>
             </tab-content>
-            <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('step1')">
+            <tab-content :before-change="()=>validateStep('step1')">
                 <step1 ref="step1" @on-validate="mergePartialModels"></step1>
             </tab-content>
-            <tab-content title="Shared" icon="ti-settings" :before-change="()=>validateStep('step2')">
+            <tab-content :before-change="()=>validateStep('step2')">
                 <step2 ref="step2" @on-validate="mergePartialModels"></step2>
             </tab-content>
-            <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('step3')">
+            <tab-content :before-change="()=>validateStep('step3')">
                 <step3 ref="step3" @on-validate="mergePartialModels"></step3>
             </tab-content>
-            <tab-content title="Last step" icon="ti-check">
+            <tab-content>
                 Here is your final model:
                 <pre>{{finalModel}}</pre>
             </tab-content>
@@ -96,3 +96,9 @@
         },
     }
 </script>
+
+<style>
+    .wizard-progress-with-circle, ul.wizard-nav-pills {
+        display: none !important;
+    }
+</style>

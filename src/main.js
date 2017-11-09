@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import VueFormWizard from 'vue-form-wizard'
 import Vuelidate from 'vuelidate'
+import SocialSharing from 'vue-social-sharing'
+
 import App from './App.vue'
 
 Vue.use(VueFormWizard);
 Vue.use(Vuelidate);
+Vue.use(SocialSharing);
 
 window.$ = window.jQuery = require("jquery");
 

@@ -48,6 +48,13 @@ window.onload = function() {
             data = null;
 
         if (event.data.token === 'it-zombie') {
+            if (event.data.event === 'loading') {
+                iframe.contentWindow.postMessage({
+                    'event': 'setUserToken',
+                    'token': 'it-zombie',
+                    'params': {'token':user_token}
+                }, "*");
+            }
             if (event.data.event === 'open') {
                 widget.css('height', '100%');
                 widget.css('width', '100%');
